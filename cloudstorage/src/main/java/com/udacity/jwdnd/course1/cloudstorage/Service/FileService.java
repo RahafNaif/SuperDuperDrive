@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.Service;
 import com.udacity.jwdnd.course1.cloudstorage.Entity.File;
 import com.udacity.jwdnd.course1.cloudstorage.Entity.User;
 import com.udacity.jwdnd.course1.cloudstorage.Mapper.FileMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Service
+@AllArgsConstructor
 public class FileService {
     private UserService userService;
     private FileMapper fileMapper;
@@ -34,15 +36,15 @@ public class FileService {
         }
 
         if(fileMapper.getFile(file.getFileName(), file.getUserId()) != null){
-            model.addAttribute("fileError", "The file already uploaded, try again");
+            model.addAttribute("resultError", "The file already uploaded, try again");
             return;
         }
 
         int fileAdded = fileMapper.insertFile(file);
         if( fileAdded > 0) {
-            model.addAttribute("uploadSuccess", true);
+            model.addAttribute("resultSuccess", true);
             return;
         }
-        model.addAttribute("fileError", "There was an error, please try again");
+        model.addAttribute("resultError", "There was an error, please try again");
     }
 }
