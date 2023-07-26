@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface FileMapper {
     @Insert("INSERT INTO FILES (fileName, contentType, fileSize, fileData, userId) VALUES (#{fileName}, #{contentType}, #{fileSize}, #{fileData}, #{userId})")
@@ -14,5 +16,11 @@ public interface FileMapper {
     int insertFile(File file);
 
     @Select("SELECT * FROM FILES WHERE fileName =#{fileName} AND userId=#{userId}")
-    File getFile(String fileName, Integer userId);
+    File getFileByNameAndUserId(String fileName, Integer userId);
+
+    @Select("SELECT * FROM FILES WHERE userId=#{userId}")
+    List<File> getAllFiles(Integer userId);
+
+    @Select("SELECT * FROM FILES WHERE fileId =#{fileId}")
+    File getFileById(Integer fileId);
 }

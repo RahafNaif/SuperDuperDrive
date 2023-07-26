@@ -17,11 +17,11 @@ public class UserService {
     private HashService hashService;
 
     public User getUser(String username) {
-        return userMapper.getUser(username);
+        return userMapper.getUserByUsername(username);
     }
 
     public int createUser(User user, Model model) {
-        if (userMapper.getUser(user.getUsername()) != null) {
+        if (userMapper.getUserByUsername(user.getUsername()) != null) {
            model.addAttribute("signUpError", "The username already exist");
            return -1;
         }

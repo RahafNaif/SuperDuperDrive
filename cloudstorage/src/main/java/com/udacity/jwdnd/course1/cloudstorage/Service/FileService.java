@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -35,7 +36,7 @@ public class FileService {
             throw exception;
         }
 
-        if(fileMapper.getFile(file.getFileName(), file.getUserId()) != null){
+        if(fileMapper.getFileByNameAndUserId(file.getFileName(), file.getUserId()) != null){
             model.addAttribute("resultError", "The file already uploaded, try again");
             return;
         }
@@ -46,5 +47,14 @@ public class FileService {
             return;
         }
         model.addAttribute("resultError", "There was an error, please try again");
+    }
+
+    public List<File> getFiles(String username) {
+        Integer userId = userService.getUser(username).getUserId();
+        return fileMapper.getAllFiles(userId);
+    }
+
+    public File getFile(Integer fileId) {
+        return fileMapper.getFileById(fileId);
     }
 }
