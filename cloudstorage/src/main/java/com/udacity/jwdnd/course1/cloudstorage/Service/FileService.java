@@ -6,6 +6,7 @@ import com.udacity.jwdnd.course1.cloudstorage.Mapper.FileMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,6 +22,10 @@ public class FileService {
         if (fileToUpload.isEmpty()) {
             model.addAttribute("fileError", "The file you upload is empty, try again");
             return;
+        }
+
+        if (fileToUpload.getSize() > 5242880) {
+            throw new MaxUploadSizeExceededException(fileToUpload.getSize());
         }
 
         File file = new File();
@@ -56,5 +61,9 @@ public class FileService {
 
     public File getFile(Integer fileId) {
         return fileMapper.getFileById(fileId);
+    }
+
+    public void deleteFile(Integer fileId) {
+        fileMapper.deleteFile(fileId);
     }
 }

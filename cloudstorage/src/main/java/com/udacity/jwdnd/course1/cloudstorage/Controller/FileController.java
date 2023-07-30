@@ -25,10 +25,18 @@ public class FileController {
         return "result";
     }
 
-    @GetMapping("/view-file")
+    @GetMapping(value = "/view-file", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> viewFile(@RequestParam("fileId") Integer fileId) {
         File file = fileService.getFile(fileId);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ file.getFileName() +"\"")
-                .contentType(MediaType)
+                .contentType(MediaType.parseMediaType(file.getContentType()))
+                .body(file.getFileData());
+    }
+
+    @GetMapping("/delete-file")
+    public String deleteFile(@RequestParam("fileId") Integer fileId, Model model) {
+        fileService.deleteFile(fileId);
+        model.addAttribute("resultSuccess", true);
+        return "result";
     }
 }
