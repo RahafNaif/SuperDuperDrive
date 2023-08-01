@@ -193,10 +193,10 @@
         <!--For opening the note modal-->
         <script type="text/javascript">
             // For opening the note modal
-            function showNoteModal(noteId, noteTitle, noteDescription) {
-                $('#note-id').val(noteId ? noteId : '');
-                $('#note-title').val(noteTitle ? noteTitle : '');
-                $('#note-description').val(noteDescription ? noteDescription : '');
+            function showNoteModal(note) {
+                $('#note-id').val(note.noteId ? note.noteId : '');
+                $('#note-title').val(note.noteTitle ? note.noteTitle : '');
+                $('#note-description').val(note.noteDescription ? note.noteDescription : '');
             }
 
             // For opening the credentials modal
