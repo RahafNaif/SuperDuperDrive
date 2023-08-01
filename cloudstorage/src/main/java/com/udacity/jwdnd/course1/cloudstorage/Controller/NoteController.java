@@ -25,7 +25,7 @@ public class NoteController {
     @GetMapping("/delete-note")
     public String deleteNote(@RequestParam("noteId") Integer noteId, Model model){
         noteService.deleteNote(noteId);
-        model.addAttribute("success",true);
+        model.addAttribute("resultSuccess",true);
         return "result";
     }
 }

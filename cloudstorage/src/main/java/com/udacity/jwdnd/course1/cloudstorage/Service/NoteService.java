@@ -17,7 +17,7 @@ public class NoteService {
         note.setUserId(userService.getUser(username).getUserId());
         if (noteMapper.getNote(note.getNoteId()) != null) {
             updateNote(note);
-            model.addAttribute("success", true);
+            model.addAttribute("resultSuccess", true);
             return;
         }
 
@@ -28,7 +28,7 @@ public class NoteService {
 
         int addedNote= noteMapper.insertNote(note);
         if (addedNote > 0 ){
-            model.addAttribute("success", true);
+            model.addAttribute("resultSuccess", true);
             return;
         }
         model.addAttribute("resultError", "There was an error, please try again");
