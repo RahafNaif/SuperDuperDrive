@@ -16,7 +16,7 @@ public class NoteService {
     public void createUpdateNote(Note note, Model model, String username){
         note.setUserId(userService.getUser(username).getUserId());
         if (noteMapper.getNote(note.getNoteId()) != null) {
-            updateNote(note);
+            noteMapper.updateNote(note);
             model.addAttribute("resultSuccess", true);
             return;
         }
@@ -36,10 +36,6 @@ public class NoteService {
 
     public List<Note> getAllNotes(String username){
         return noteMapper.getAllNotes(userService.getUser(username).getUserId());
-    }
-
-    public void updateNote(Note note){
-        noteMapper.updateNote(note);
     }
 
     public void deleteNote(Integer noteId){

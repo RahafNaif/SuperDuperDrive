@@ -6,18 +6,21 @@ import java.util.List;
 
 @Mapper
 public interface CredentialMapper {
-    @Insert("INSERT INTO CREDENTIALS (url, username, password, userId) VALUES (#{url}, #{username}, #{password}, #{userId})")
+    @Insert("INSERT INTO CREDENTIALS (url, username, password, key, userId) VALUES (#{url}, #{username}, #{password}, #{key}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "credentialId")
     int insertCredential(Credential credential);
+
+    @Select("SELECT * FROM CREDENTIALS WHERE credentialId =#{credentialId}")
+    Credential getCredential(Integer userId);
+
+    @Select("SELECT * FROM CREDENTIALS WHERE username = #{username}")
+    Credential getCredentialByUsername(String username);
 
     @Select("SELECT * FROM CREDENTIALS WHERE userId =#{userId}")
     List<Credential> getAllCredentials(Integer userId);
 
-    @Update("UPDATE CREDENTIALS SET username =#{username}, password=#{password} WHERE credentialId =#{credentialId}")
+    @Update("UPDATE CREDENTIALS SET url =#{url}, username =#{username}, password =#{password}, key =#{key} WHERE credentialId =#{credentialId}")
     int updateCredential(Credential credential);
-
-    @Select("SELECT * FROM CREDENTIALS WHERE credentialId =#{credentialId}")
-    Credential getCredential(Integer userId);
 
     @Delete("DELETE FROM CREDENTIALS WHERE credentialId = #{credentialId}")
     void deleteCredential(Integer credentialId);
