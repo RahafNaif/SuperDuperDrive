@@ -6,7 +6,6 @@ import com.udacity.jwdnd.course1.cloudstorage.Util.EncryptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
@@ -61,12 +60,4 @@ public class CredentialService {
     public void deleteCredential(Integer credentialId ){
         credentialMapper.deleteCredential(credentialId);
     }
-
-//    public String decryptPassword(String password, String key){
-//        System.out.println(password);
-//        System.out.println(key);
-//        String decryptedPassword = encryptionService.decryptValue(password, key);
-//        return decryptedPassword;
-//    }
-//    Credential(credentialId=1, url=htt, username=ergterter, password=0Vkg/8bIVduyAhVKE4k4pQ==, key=F8o2v2aPsdqgu6eMol+4Gw==, userId=3)
 }
